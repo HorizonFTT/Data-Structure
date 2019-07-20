@@ -65,7 +65,7 @@ bool Algorithm::printPrePath(BiTree root) {
     return true;
 }
 
-void Algorithm::BFS(Graph<> *g) {
+void Algorithm::BFSTraverse(Graph<> *g) {
     size_t vexnum = g->vexnum;
     bool visited[vexnum] = {false};
     Queue<int> queue;
@@ -77,16 +77,37 @@ void Algorithm::BFS(Graph<> *g) {
             queue.enQueue(v);
             while (!queue.queueEmpty()) {
                 queue.deQueue(v);
-                for (int w = g->firstNeighbor(v + 1); w != 0;
-                     w = g->nextNeighbor(v + 1, w)) {
-                    if (!visited[w - 1]) {
-                        std::cout << g->adjlist[w - 1]->data << " ";
-                        visited[w - 1] = true;
-                        queue.enQueue(w - 1);
+                for (int w = g->firstNeighbor(v); w != 0;
+                     w = g->nextNeighbor(v, w)) {
+                    if (!visited[w]) {
+                        std::cout << g->adjlist[w]->data << " ";
+                        visited[w] = true;
+                        queue.enQueue(w);
                     }
                 }
             }
         }
     }
     std::cout << std::endl;
+}
+
+void Algorithm::DFSTraverse(Graph<> *g) {
+    size_t vexnum = g->vexnum;
+    bool visited[vexnum] = {false};
+    for (int i = 0; i != vexnum; ++i) {
+        if (!visited[i]) {
+            DFS(g, i, visited);
+        }
+    }
+    std::cout << std::endl;
+}
+
+void Algorithm::DFS(Graph<> *g, int v, bool *visited) {
+    std::cout << g->adjlist[v]->data << " ";
+    visited[v] = true;
+    for (int w = g->firstNeighbor(v); w != 0; w = g->nextNeighbor(v, w)) {
+        if (!visited[w]) {
+            DFS(g, w, visited);
+        }
+    }
 }

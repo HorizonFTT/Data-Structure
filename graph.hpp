@@ -35,7 +35,7 @@ public:
         ArcNode<E> *temp;
         while (1) {
             std::cin >> arcdata;
-            if (arcdata == 0) {
+            if (arcdata == -1) {
                 break;
             }
             weight = 1;
@@ -54,7 +54,7 @@ class Graph {
     friend class Algorithm;
 
     static const size_t MAXVERTEXNUM = 100;
-    static const T vexend = std::is_same<char, T>::value ? '#' : 0;
+    static const T vexend = std::is_same<char, T>::value ? '#' : -1;
 
 private:
     VNode<T, E> *adjlist[MAXVERTEXNUM];
@@ -84,10 +84,10 @@ public:
     }
 
     bool adjacent(size_t x, size_t y) {
-        if (x > vexnum) {
+        if (x >= vexnum || y >= vexnum) {
             return false;
         }
-        ArcNode<E> *anode = adjlist[x - 1]->first;
+        ArcNode<E> *anode = adjlist[x]->first;
         while (anode != nullptr) {
             if (anode->adjvex == y) {
                 return true;
@@ -98,10 +98,10 @@ public:
     }
 
     void neightbors(size_t x) {
-        if (x > vexnum) {
+        if (x >= vexnum) {
             return;
         }
-        ArcNode<E> *anode = adjlist[x - 1];
+        ArcNode<E> *anode = adjlist[x];
         while (anode != nullptr) {
             std::cout << anode->adjvex << " ";
             anode = anode->next;
@@ -137,10 +137,10 @@ public:
     }
 
     bool addEdge(size_t x, size_t y) {
-        if (x > vexnum) {
+        if (x >= vexnum || y >= vexnum) {
             return false;
         }
-        VNode<T, E> *vnode = adjlist[x - 1];
+        VNode<T, E> *vnode = adjlist[x];
         E weight = 1;
         if (weighted == true) {
             std::cin >> weight;
@@ -153,10 +153,10 @@ public:
     }
 
     bool removeEdge(size_t x, size_t y) {
-        if (x > vexnum) {
+        if (x >= vexnum || y >= vexnum) {
             return false;
         }
-        VNode<T, E> *vnode = adjlist[x - 1];
+        VNode<T, E> *vnode = adjlist[x];
         ArcNode<E> *anode = vnode->first;
         ArcNode<E> *temp = nullptr;
         while (anode != nullptr) {
@@ -178,18 +178,18 @@ public:
     }
 
     size_t firstNeighbor(size_t x) {
-        if (x > vexnum) {
+        if (x >= vexnum) {
             return false;
         }
-        ArcNode<E> *anode = adjlist[x - 1]->first;
+        ArcNode<E> *anode = adjlist[x]->first;
         return anode == nullptr ? 0 : anode->adjvex;
     }
 
     size_t nextNeighbor(size_t x, size_t y) {
-        if (x > vexnum) {
+        if (x >= vexnum || y >= vexnum) {
             return false;
         }
-        ArcNode<E> *anode = adjlist[x - 1]->first;
+        ArcNode<E> *anode = adjlist[x]->first;
         while (anode != nullptr) {
             if (anode->adjvex == y) {
                 anode = anode->next;
@@ -201,10 +201,10 @@ public:
     }
 
     E getEdgeValue(size_t x, size_t y) {
-        if (x > vexnum) {
+        if (x >= vexnum) {
             return 0;
         }
-        ArcNode<E> *anode = adjlist[x - 1]->first;
+        ArcNode<E> *anode = adjlist[x]->first;
         while (anode != nullptr) {
             if (anode->adjvex == y) {
                 return anode->weight;
@@ -215,10 +215,10 @@ public:
     }
 
     bool setEdgeValue(size_t x, size_t y, E w) {
-        if (x > vexnum) {
+        if (x >= vexnum) {
             return false;
         }
-        ArcNode<E> *anode = adjlist[x - 1]->first;
+        ArcNode<E> *anode = adjlist[x]->first;
         while (anode != nullptr) {
             if (anode->adjvex == y) {
                 anode->weight = w;

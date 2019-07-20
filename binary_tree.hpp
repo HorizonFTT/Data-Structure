@@ -7,7 +7,7 @@ class BinaryTree {
     friend class Algorithm;
 
 private:
-    static const T end = std::is_same<char, T>::value ? '#' : 0;
+    static const T end = std::is_same<char, T>::value ? '#' : -1;
     T data;
     BinaryTree<T> *lchild;
     BinaryTree<T> *rchild;

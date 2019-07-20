@@ -17,5 +17,9 @@ public:
 
     static bool printPrePath(BiTree root);
 
-    static void BFS(Graph<> *g);
+    static void BFSTraverse(Graph<> *g);
+
+    static void DFSTraverse(Graph<> *g);
+
+    static void DFS(Graph<> *g, int v, bool *visited);
 };
