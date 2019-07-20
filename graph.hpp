@@ -14,7 +14,7 @@ private:
     T weight;
 
 public:
-    ArcNode(int v, ArcNode<T> *n, T w) : adjvex(v), next(n), weight(w) {}
+    ArcNode(size_t v, ArcNode<T> *n, T w) : adjvex(v), next(n), weight(w) {}
 };
 
 template <typename T, typename E>
@@ -30,19 +30,19 @@ private:
 
 public:
     VNode(T d, bool weighted) : data(d) {
-        size_t arcdata;
+        int arcdata;
         T weight;
         ArcNode<E> *temp;
         while (1) {
             std::cin >> arcdata;
-            if (arcdata == -1) {
+            if (arcdata == 0) {
                 break;
             }
             weight = 1;
             if (weighted == true) {
                 std::cin >> weight;
             }
-            temp = new ArcNode<E>(arcdata, first, weight);
+            temp = new ArcNode<E>(arcdata - 1, first, weight);
             first = temp;
             ++arcnum;
         }
@@ -54,7 +54,7 @@ class Graph {
     friend class Algorithm;
 
     static const size_t MAXVERTEXNUM = 100;
-    static const T vexend = std::is_same<char, T>::value ? '#' : -1;
+    static const T vexend = std::is_same<char, T>::value ? '#' : 0;
 
 private:
     VNode<T, E> *adjlist[MAXVERTEXNUM];

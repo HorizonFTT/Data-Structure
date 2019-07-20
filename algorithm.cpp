@@ -5,7 +5,7 @@ void Algorithm::splitList(LinkList &l) {
     auto temp = pre->next;
 
     size_t len = l.length();
-    for (int i = 0; i != len; ++i) {
+    for (size_t i = 0; i != len; ++i) {
         auto data = temp->data;
         if (data < 0) {
             l.listInsert(data, 0);
@@ -68,9 +68,9 @@ bool Algorithm::printPrePath(BiTree root) {
 void Algorithm::BFSTraverse(Graph<> *g) {
     size_t vexnum = g->vexnum;
     bool visited[vexnum] = {false};
-    Queue<int> queue;
-    for (int i = 0; i != vexnum; ++i) {
-        int v = i;
+    Queue<size_t> queue;
+    for (size_t i = 0; i != vexnum; ++i) {
+        size_t v = i;
         if (!visited[v]) {
             std::cout << g->adjlist[v]->data << " ";
             visited[v] = true;
@@ -94,7 +94,7 @@ void Algorithm::BFSTraverse(Graph<> *g) {
 void Algorithm::DFSTraverse(Graph<> *g) {
     size_t vexnum = g->vexnum;
     bool visited[vexnum] = {false};
-    for (int i = 0; i != vexnum; ++i) {
+    for (size_t i = 0; i != vexnum; ++i) {
         if (!visited[i]) {
             DFS(g, i, visited);
         }
@@ -105,7 +105,7 @@ void Algorithm::DFSTraverse(Graph<> *g) {
 void Algorithm::DFS(Graph<> *g, int v, bool *visited) {
     std::cout << g->adjlist[v]->data << " ";
     visited[v] = true;
-    for (int w = g->firstNeighbor(v); w != 0; w = g->nextNeighbor(v, w)) {
+    for (size_t w = g->firstNeighbor(v); w != 0; w = g->nextNeighbor(v, w)) {
         if (!visited[w]) {
             DFS(g, w, visited);
         }
