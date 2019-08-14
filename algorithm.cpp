@@ -1,25 +1,41 @@
 #include "algorithm.hpp"
 
-void Algorithm::splitList(LinkList &l) {
-    auto pre = l.head;
-    auto temp = pre->next;
+void Algorithm::splitList(LinkList l) {
+    auto node = l->head->next;
+    size_t zero = 0;
 
-    size_t len = l.length();
+    size_t len = l->length();
     for (size_t i = 0; i != len; ++i) {
-        auto data = temp->data;
+        auto data = node->data;
+        node = node->next;
         if (data < 0) {
-            l.listInsert(data, 0);
-        } else if (data > 0) {
-            l.listInsert(data, len);
-        } else {
-            temp = temp->next;
-            pre = pre->next;
-            continue;
+            l->listDelete(i);
+            l->listInsert(data, 0);
+            ++zero;
         }
-        pre->next = temp->next;
-        delete temp;
-        temp = pre->next;
+        if (data == 0) {
+            l->listDelete(i);
+            l->listInsert(data, zero);
+        }
     }
+}
+
+bool Algorithm::judgeList(LinkList l) {
+    auto node = l->head->next;
+    while (node != nullptr) {
+        if (node->data % 2 == 0) {
+            node = node->next;
+            while (node != nullptr) {
+                if (node->data % 2 == 1) {
+                    return false;
+                }
+                node = node->next;
+            }
+        } else {
+            node = node->next;
+        }
+    }
+    return true;
 }
 
 void Algorithm::levelOrder(BiTree root) {
@@ -63,6 +79,23 @@ bool Algorithm::printPrePath(BiTree root) {
         printPrePath(root->lchild);
     }
     return true;
+}
+
+size_t Algorithm::getSize(BiTree root) {
+    if (root == nullptr) {
+        return 0;
+    }
+    return 1 + getSize(root->lchild) + getSize(root->rchild);
+}
+
+BiTree Algorithm::getKRank(BiTree root, int K) {
+    if (K > root->data) {
+        return getKRank(root->lchild, K - root->data);
+    } else if (K < root->data) {
+        return getKRank(root->rchild, K);
+    } else {
+        return root;
+    }
 }
 
 void Algorithm::BFSTraverse(Graph<> *g) {
@@ -110,4 +143,95 @@ void Algorithm::DFS(Graph<> *g, int v, bool *visited) {
             DFS(g, w, visited);
         }
     }
+}
+
+void Algorithm::fuck() {
+    int a[101] = {1};
+    for (int i = 1; i != 101; ++i) {
+        int lower_bound = a[i - 1];
+        int upper_bound = 2 * lower_bound;
+        for (int j = 0; j != i; ++j) {
+            int x = 2 * a[j], y = 3 * a[j], z = 5 * a[j];
+            if (x > lower_bound && x < upper_bound) {
+                upper_bound = x;
+            }
+            if (y > lower_bound && y < upper_bound) {
+                upper_bound = y;
+            }
+            if (z > lower_bound && z < upper_bound) {
+                upper_bound = z;
+            }
+        }
+        a[i] = upper_bound;
+        std::cout << lower_bound << " ";
+    }
+
+    // int n = 0;
+    // int k = 2;
+    // int a[100] = {1};
+    // while (n != 100) {
+    //     for (int i = 0; i <= n; --i) {
+    //         if (k == 2 * a[i] || k == 3 * a[i] || k == 5 * a[i]) {
+    //             a[++n] = k;
+    //             break;
+    //         }
+    //     }
+    //     ++k;
+    // }
+    // for (int i = 0; i != 100; ++i) {
+    //     std::cout << a[i] << " ";
+    // }
+}
+
+bool Algorithm::judge(LinkList l) {
+    auto temp = l->head;
+    while (temp != nullptr) {
+        temp = temp->next;
+        if (temp != nullptr && temp->data % 2 == 0) {
+            break;
+        }
+    }
+    while (temp != nullptr) {
+        temp = temp->next;
+        if (temp != nullptr && temp->data % 2 == 1) {
+            return false;
+        }
+    }
+    return true;
+}
+
+void Algorithm::delItem(LinkList l, int item) { del(l->head, item); }
+
+void Algorithm::del(ListNode<int> *head, int item) {
+    auto node = head->next;
+    if (node == nullptr) {
+        return;
+    }
+    if (node->data == item) {
+        head->next = node->next;
+        delete node;
+        del(head, item);
+    } else {
+        del(head->next, item);
+    }
+}
+
+int Algorithm::getNewData(int data) {
+    int num = data;
+    int temp = 0;
+    if (num / 10 == 0) {
+        return 1;
+    }
+    do {
+        temp = temp + num % 10;
+        num = num / 10;
+    } while (num > 0);
+    return 1 + getNewData(temp);
+}
+
+size_t Algorithm::getTreeSize(BiTree root) {
+    if (root == nullptr) {
+        return 0;
+    }
+    return 1 + getTreeSize(root->lchild) + getTreeSize(root->rchild);
 }

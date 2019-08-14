@@ -8,4 +8,4 @@ algorithm.o:algorithm.cpp algorithm.hpp list.hpp stack.hpp queue.hpp binary_tree
 	g++ -Wall -g -c algorithm.cpp
 
 clean:
-	rm -rf test test.o algorithm.o
+	rm -rf test.out *.o

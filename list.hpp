@@ -26,6 +26,20 @@ private:
     ListNode<T>* head;
 
 public:
+    static List<T>* createList(size_t n = 0) {
+        T data;
+        List<T>* l = new List();
+        if (n == 0) {
+            std::cin >> n;
+        }
+        while (n != 0) {
+            std::cin >> data;
+            l->listInsert(data);
+            --n;
+        }
+        return l;
+    }
+
     List() : head(new ListNode<T>(-1)){};
 
     size_t length() {
@@ -35,7 +49,7 @@ public:
             ++count;
             temp = temp->next;
         }
-        return count;
+        return count;         
     }
 
     ListNode<T>* locateElem(T elem) {
@@ -79,7 +93,7 @@ public:
         ListNode<T>* temp = head;
         ListNode<T>* node = nullptr;
         T elem = 0;
-        do {
+        while (temp->next != nullptr) {
             if (index == 0) {
                 node = temp->next;
                 temp->next = node->next;
@@ -89,7 +103,7 @@ public:
             }
             --index;
             temp = temp->next;
-        } while (temp != nullptr);
+        }
         return elem;
     }
 
