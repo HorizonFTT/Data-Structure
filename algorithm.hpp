@@ -40,4 +40,6 @@ public:
     static int getNewData(int data);
 
     static size_t getTreeSize(BiTree root);
+
+    static bool inMatrix(int x);
 };

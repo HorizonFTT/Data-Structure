@@ -235,3 +235,21 @@ size_t Algorithm::getTreeSize(BiTree root) {
     }
     return 1 + getTreeSize(root->lchild) + getTreeSize(root->rchild);
 }
+
+bool Algorithm::inMatrix(int num) {
+    int mateix[5][5] = {
+        1,  2,  3, 4, 5,  3,  4,  6, 7,  8,  4,  7,  9,
+        10, 11, 5, 8, 10, 15, 20, 6, 10, 14, 17, 21,
+    };
+    int x = 0, y = 4;
+    while (x != 5 && y != -1) {
+        if (num > mateix[x][y]) {
+            ++x;
+        } else if (num < mateix[x][y]) {
+            --y;
+        } else {
+            return true;
+        }
+    }
+    return false;
+}
