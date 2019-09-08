@@ -38,6 +38,59 @@ bool Algorithm::judgeList(LinkList l) {
     return true;
 }
 
+void Algorithm::delSame(LinkList l) {
+    auto node = l->head->next;
+    while (node != nullptr) {
+        auto temp = node;
+        while (temp->next != nullptr) {
+            if (temp->next->data == node->data) {
+                auto same = temp->next;
+                temp->next = same->next;
+                delete same;
+            } else {
+                temp = temp->next;
+            }
+        }
+        node = node->next;
+    }
+}
+
+void Algorithm::selectSortList(LinkList l) {
+    auto node = l->head->next;
+    while (node != nullptr) {
+        auto temp = node->next;
+        auto min = node;
+        while (temp != nullptr) {
+            if (temp->data < min->data) {
+                min = temp;
+            }
+            temp = temp->next;
+        }
+        auto t = node->data;
+        node->data = min->data;
+        min->data = t;
+        node = node->next;
+    }
+}
+
+LinkList Algorithm::factorization(unsigned num) {
+    LinkList l = new List<int>();
+    if (num == 1 || num == 0) {
+        l->listInsert(num);
+        return l;
+    }
+    do {
+        for (unsigned i = 2; i <= num; ++i) {
+            if (num % i == 0) {
+                l->listInsert(i);
+                num /= i;
+                break;
+            }
+        }
+    } while (num != 1);
+    return l;
+}
+
 void Algorithm::levelOrder(BiTree root) {
     Queue<BiTree> queue;
     BiTree temp;
@@ -96,6 +149,30 @@ BiTree Algorithm::getKRank(BiTree root, int K) {
     } else {
         return root;
     }
+}
+
+size_t Algorithm::getDepth(BiTree root) {
+    if (root == nullptr) {
+        return 0;
+    }
+    size_t left = getDepth(root->lchild);
+    size_t right = getDepth(root->rchild);
+    return 1 + (left > right ? left : right);
+}
+
+bool Algorithm::strictBinary(BiTree root) {
+    if (root == nullptr) {
+        return true;
+    }
+    if (strictBinary(root->lchild) && strictBinary(root->rchild)) {
+        if (root->lchild && root->rchild) {
+            return true;
+        }
+        if ((root->lchild == nullptr) && (root->rchild == nullptr)) {
+            return true;
+        }
+    }
+    return false;
 }
 
 void Algorithm::BFSTraverse(Graph<> *g) {
@@ -252,4 +329,20 @@ bool Algorithm::inMatrix(int num) {
         }
     }
     return false;
+}
+
+void Algorithm::APlusB(int x) {
+    int array[10] = {1, 3, 5, 6, 8, 9, 12, 14, 16, 17};
+    for (int i = 0, j = 9; i != j; ++i) {
+        int a = array[i];
+        int b = x - a;
+        while (array[j] > b && i + 1 != j) {
+            --j;
+        }
+        if (array[j] == b) {
+            std::cout << a << " + " << b << " = " << x << std::endl;
+            return;
+        }
+    }
+    std::cout << "none" << std::endl;
 }

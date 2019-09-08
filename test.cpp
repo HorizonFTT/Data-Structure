@@ -3,19 +3,26 @@
 #include "algorithm.hpp"
 
 int main(int argc, char const *argv[]) {
+    // LinkList l = List<int>::createList();
+    // BiTree tree = BinaryTree<int>::creatTree();
+    // Graph<> *graph = Graph<>::creatGraph(true, false);
+
     struct timeval t1, t2;
     double timeuse;
     gettimeofday(&t1, NULL);
 
-    // LinkList l = List<int>::createList();
     // l->printList();
     // Algorithm::delItem(l, 1);
     // l->printList();
     // Algorithm::splitList(l);
     // l->printList();
+    // Algorithm::delSame(l);
+    // l->printList();
+    // Algorithm::selectSortList(l);
+    // l->printList();
+    // Algorithm::factorization(2100)->printList();
     // std::cout << Algorithm::judgeList(l) << std::endl;
 
-    // BiTree tree = BinaryTree<int>::creatTree();
     // tree->preOrder();
     // std::cout << std::endl;
     // tree->inOrder();
@@ -27,14 +34,16 @@ int main(int argc, char const *argv[]) {
     // std::cout << std::endl;
     // Algorithm::levelOrder(tree);
     // Algorithm::printPrePath(tree);
+    // std::cout << Algorithm::getDepth(tree) << std::endl;
+    // std::cout << Algorithm::strictBinary(tree) << std::endl;
 
-    // Graph<> *graph = Graph<>::creatGraph(true, false);
     // Algorithm::BFSTraverse(graph);
     // Algorithm::DFSTraverse(graph);
 
     // Algorithm::fuck();
     for (int i = 0; i != 30; ++i) {
-        std::cout << Algorithm::inMatrix(i) << std::endl;
+        Algorithm::APlusB(i);
+        // std::cout << Algorithm::inMatrix(i) << std::endl;
     }
 
     gettimeofday(&t2, NULL);

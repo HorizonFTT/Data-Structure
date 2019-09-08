@@ -15,6 +15,12 @@ public:
 
     static bool judgeList(LinkList l);
 
+    static void delSame(LinkList l);
+
+    static void selectSortList(LinkList l);
+
+    static LinkList factorization(unsigned num);
+
     static void levelOrder(BiTree root);
 
     static bool printPrePath(BiTree root);
@@ -22,6 +28,10 @@ public:
     static size_t getSize(BiTree root);
 
     static BiTree getKRank(BiTree root, int K);
+
+    static size_t getDepth(BiTree root);
+
+    static bool strictBinary(BiTree root);
 
     static void BFSTraverse(Graph<> *g);
 
@@ -35,11 +45,14 @@ public:
 
     static void delItem(LinkList l, int item);
 
-    static void del(ListNode<int>* head, int item);
+    static void del(ListNode<int> *head, int item);
 
     static int getNewData(int data);
 
     static size_t getTreeSize(BiTree root);
 
     static bool inMatrix(int x);
+
+    static void APlusB(int x);
+
 };

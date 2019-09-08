@@ -26,10 +26,10 @@ private:
     ListNode<T>* head;
 
 public:
-    static List<T>* createList(size_t n = 0) {
+    static List<T>* createList(size_t n = -1) {
         T data;
         List<T>* l = new List();
-        if (n == 0) {
+        if (n == -1) {
             std::cin >> n;
         }
         while (n != 0) {
@@ -49,7 +49,7 @@ public:
             ++count;
             temp = temp->next;
         }
-        return count;         
+        return count;
     }
 
     ListNode<T>* locateElem(T elem) {
