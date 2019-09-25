@@ -8,6 +8,7 @@ using LinkList = List<int> *;
 using SqStack = Stack<int>;
 using SqQueue = Queue<int>;
 using BiTree = BinaryTree<int> *;
+using DiGraph = Graph<> *;
 
 class Algorithm {
 public:
@@ -33,11 +34,18 @@ public:
 
     static bool strictBinary(BiTree root);
 
-    static void BFSTraverse(Graph<> *g);
+    static void BFSTraverse(DiGraph g);
 
-    static void DFSTraverse(Graph<> *g);
+    static void DFSTraverse(DiGraph g);
 
-    static void DFS(Graph<> *g, int v, bool *visited);
+    static void DFS(DiGraph g, int v, bool *visited);
+
+    static bool judgePath(DiGraph g, int i, int j);
+
+    static void simplePath(DiGraph g, int i, int j);
+
+    static void findPath(DiGraph g, int beg, int end, bool *visited, int *path,
+                         int depth);
 
     static void fuck();
 
@@ -55,4 +63,5 @@ public:
 
     static void APlusB(int x);
 
+    static int findMinSum(int *a = nullptr, int n = 0);
 };

@@ -177,15 +177,15 @@ public:
         return false;
     }
 
-    size_t firstNeighbor(size_t x) {
+    int firstNeighbor(size_t x) {
         if (x >= vexnum) {
             return false;
         }
         ArcNode<E> *anode = adjlist[x]->first;
-        return anode == nullptr ? 0 : anode->adjvex;
+        return anode == nullptr ? -1 : anode->adjvex;
     }
 
-    size_t nextNeighbor(size_t x, size_t y) {
+    int nextNeighbor(size_t x, size_t y) {
         if (x >= vexnum || y >= vexnum) {
             return false;
         }
@@ -193,11 +193,11 @@ public:
         while (anode != nullptr) {
             if (anode->adjvex == y) {
                 anode = anode->next;
-                return anode == nullptr ? 0 : anode->adjvex;
+                return anode == nullptr ? -1 : anode->adjvex;
             }
             anode = anode->next;
         }
-        return 0;
+        return -1;
     }
 
     E getEdgeValue(size_t x, size_t y) {

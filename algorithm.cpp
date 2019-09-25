@@ -175,7 +175,7 @@ bool Algorithm::strictBinary(BiTree root) {
     return false;
 }
 
-void Algorithm::BFSTraverse(Graph<> *g) {
+void Algorithm::BFSTraverse(DiGraph g) {
     size_t vexnum = g->vexnum;
     bool visited[vexnum] = {false};
     Queue<size_t> queue;
@@ -187,7 +187,7 @@ void Algorithm::BFSTraverse(Graph<> *g) {
             queue.enQueue(v);
             while (!queue.queueEmpty()) {
                 queue.deQueue(v);
-                for (int w = g->firstNeighbor(v); w != 0;
+                for (int w = g->firstNeighbor(v); w != -1;
                      w = g->nextNeighbor(v, w)) {
                     if (!visited[w]) {
                         std::cout << g->adjlist[w]->data << " ";
@@ -201,7 +201,7 @@ void Algorithm::BFSTraverse(Graph<> *g) {
     std::cout << std::endl;
 }
 
-void Algorithm::DFSTraverse(Graph<> *g) {
+void Algorithm::DFSTraverse(DiGraph g) {
     size_t vexnum = g->vexnum;
     bool visited[vexnum] = {false};
     for (size_t i = 0; i != vexnum; ++i) {
@@ -212,13 +212,61 @@ void Algorithm::DFSTraverse(Graph<> *g) {
     std::cout << std::endl;
 }
 
-void Algorithm::DFS(Graph<> *g, int v, bool *visited) {
+void Algorithm::DFS(DiGraph g, int v, bool *visited) {
     std::cout << g->adjlist[v]->data << " ";
     visited[v] = true;
-    for (size_t w = g->firstNeighbor(v); w != 0; w = g->nextNeighbor(v, w)) {
+    for (int w = g->firstNeighbor(v); w != -1; w = g->nextNeighbor(v, w)) {
         if (!visited[w]) {
             DFS(g, w, visited);
         }
+    }
+}
+
+bool Algorithm::judgePath(DiGraph g, int i, int j) {
+    size_t vexnum = g->vexnum;
+    bool visited[vexnum] = {false};
+    Queue<size_t> queue;
+    size_t v = i - 1;
+    visited[v] = true;
+    queue.enQueue(v);
+    while (!queue.queueEmpty()) {
+        queue.deQueue(v);
+        for (int w = g->firstNeighbor(v); w != -1; w = g->nextNeighbor(v, w)) {
+            if (w == j - 1) {
+                return true;
+            }
+            if (!visited[w]) {
+                visited[w] = true;
+                queue.enQueue(w);
+            }
+        }
+    }
+    return false;
+}
+
+void Algorithm::simplePath(DiGraph g, int i, int j) {
+    size_t vexnum = g->vexnum;
+    bool visited[vexnum] = {false};
+    int path[vexnum] = {0};
+    findPath(g, i - 1, j - 1, visited, path, 0);
+}
+
+void Algorithm::findPath(DiGraph g, int beg, int end, bool *visited, int *path,
+                         int depth) {
+    visited[beg] = true;
+    path[depth] = beg + 1;
+    if (beg == end) {
+        for (int i = 0; i <= depth; ++i) {
+            std::cout << path[i] << " ";
+        }
+        std::cout << std::endl;
+        return;
+    }
+    for (int p = g->firstNeighbor(beg); p != -1; p = g->nextNeighbor(beg, p)) {
+        if (!visited[p]) {
+            findPath(g, p, end, visited, path, depth + 1);
+        }
+        visited[p] = false;
     }
 }
 
@@ -345,4 +393,35 @@ void Algorithm::APlusB(int x) {
         }
     }
     std::cout << "none" << std::endl;
+}
+
+int Algorithm::findMinSum(int *a, int n) {
+    int example[6] = {10, 20, -10, 8, -30, 20};
+    if (a == nullptr) {
+        a = example;
+        n = 6;
+    }
+    bool negative = false;
+    int sum = 0;
+    int min = 0;
+    for (int i = 0; i != n; ++i) {
+        if (a[i] < 0) {
+            negative = true;
+            if (sum > 0) {
+                sum = a[i];
+            } else {
+                sum += a[i];
+            }
+            if (sum < min) {
+                min = sum;
+            }
+
+            continue;
+        }
+        sum += a[i];
+    }
+    if (negative == false) {
+        return 0;
+    }
+    return min;
 }

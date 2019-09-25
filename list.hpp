@@ -26,7 +26,7 @@ private:
     ListNode<T>* head;
 
 public:
-    static List<T>* createList(size_t n = -1) {
+    static List<T>* createList(int n = -1) {
         T data;
         List<T>* l = new List();
         if (n == -1) {

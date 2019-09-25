@@ -5,7 +5,7 @@
 int main(int argc, char const *argv[]) {
     // LinkList l = List<int>::createList();
     // BiTree tree = BinaryTree<int>::creatTree();
-    // Graph<> *graph = Graph<>::creatGraph(true, false);
+    // DiGraph graph = Graph<>::creatGraph(true, false);
 
     struct timeval t1, t2;
     double timeuse;
@@ -13,7 +13,7 @@ int main(int argc, char const *argv[]) {
 
     // l->printList();
     // Algorithm::delItem(l, 1);
-    // l->printList();
+    // // l->printList();
     // Algorithm::splitList(l);
     // l->printList();
     // Algorithm::delSame(l);
@@ -39,12 +39,17 @@ int main(int argc, char const *argv[]) {
 
     // Algorithm::BFSTraverse(graph);
     // Algorithm::DFSTraverse(graph);
+    // Algorithm::simplePath(graph, 1, 4);
+    // std::cout << Algorithm::judgePath(graph, 3, 1) << std::endl;
+    // std::cout << Algorithm::judgePath(graph, 2, 1) << std::endl;
 
     // Algorithm::fuck();
-    for (int i = 0; i != 30; ++i) {
-        Algorithm::APlusB(i);
-        // std::cout << Algorithm::inMatrix(i) << std::endl;
-    }
+    std::cout << Algorithm::findMinSum() << std::endl;
+    
+    // for (int i = 0; i != 30; ++i) {
+    //     Algorithm::APlusB(i);
+    //     std::cout << Algorithm::inMatrix(i) << std::endl;
+    // }
 
     gettimeofday(&t2, NULL);
     timeuse = t2.tv_sec - t1.tv_sec + (t2.tv_usec - t1.tv_usec) / 1000000.0;
