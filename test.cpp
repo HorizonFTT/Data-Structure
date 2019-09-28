@@ -1,4 +1,5 @@
 #include <sys/time.h>
+#include <cstdio>
 #include <iostream>
 #include "algorithm.hpp"
 
@@ -44,12 +45,14 @@ int main(int argc, char const *argv[]) {
     // std::cout << Algorithm::judgePath(graph, 2, 1) << std::endl;
 
     // Algorithm::fuck();
-    std::cout << Algorithm::findMinSum() << std::endl;
-    
+    // std::cout << Algorithm::findMinSum() << std::endl;
+
     // for (int i = 0; i != 30; ++i) {
     //     Algorithm::APlusB(i);
     //     std::cout << Algorithm::inMatrix(i) << std::endl;
     // }
+
+    
 
     gettimeofday(&t2, NULL);
     timeuse = t2.tv_sec - t1.tv_sec + (t2.tv_usec - t1.tv_usec) / 1000000.0;
