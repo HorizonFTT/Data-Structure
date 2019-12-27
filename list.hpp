@@ -10,7 +10,7 @@ class ListNode {
     friend class List<T>;
     friend class Algorithm;
 
-private:
+public:
     T data;
     ListNode<T>* next;
 
@@ -22,7 +22,7 @@ template <typename T>
 class List {
     friend class Algorithm;
 
-private:
+public:
     ListNode<T>* head;
 
 public:
